@@ -1,5 +1,7 @@
-import QtQuick 2.7
-import QmlPlotting 2.0 as QmlPlotting
+import QtQuick
+import QtQuickPlotScene as QtQuickPlotScene
+
+// TODO: Better move calculations to C++?
 
 Item {
     id: root
@@ -83,11 +85,11 @@ Item {
             enabled: root.enabled
             anchors.fill: parent
 
-            onWheel: {
+            onWheel: (wheel) => {
                 var oldPos = Qt.point(root.plotGroup.viewRect.x, root.plotGroup.viewRect.y);
                 var oldSize = Qt.size(root.plotGroup.viewRect.width, root.plotGroup.viewRect.height);
                 var scale = 1. - wheel.angleDelta.y * (0.25 / 120.);
-                const autoAspect = root.plotGroup.viewMode === QmlPlotting.PlotGroup.AutoAspect;
+                const autoAspect = root.plotGroup.viewMode === QtQuickPlotScene.PlotGroup.AutoAspect;
                 var newSize = autoAspect ? scaleSizeVarAspect(oldSize, scale, scale) : scaleSizeFixAspect(oldSize, scale);
                 var x = oldPos.x + wheel.x/root.width * (oldSize.width - newSize.width);
                 var y = oldPos.y + (1. - wheel.y/root.height) * (oldSize.height - newSize.height);
@@ -96,13 +98,13 @@ Item {
                 root.plotGroup.viewRect = moveToMaxView(newRect);
                 wheelActive = false;
             }
-            onPressed: {
+            onPressed: (mouse) => {
                 // Store coordinates and set zoom/pan mode on mouse-down
                 pressedP = Qt.point(mouse.x, mouse.y);
                 mouseOld = Qt.point(mouse.x, mouse.y);
                 zoomMode = pressedButtons & Qt.RightButton;
             }
-            onPositionChanged: {
+            onPositionChanged: (mouse) => {
                 var oldPos = Qt.point(root.plotGroup.viewRect.x, root.plotGroup.viewRect.y);
                 var oldSize = Qt.size(root.plotGroup.viewRect.width, root.plotGroup.viewRect.height);
                 // Calculate mouse delta in plot space
@@ -114,7 +116,7 @@ Item {
                 if (zoomMode) {
                     // Zoom mode, scale view at mouse down coordinates
                     var newSize;
-                    const autoAspect = root.plotGroup.viewMode === QmlPlotting.PlotGroup.AutoAspect;
+                    const autoAspect = root.plotGroup.viewMode === QtQuickPlotScene.PlotGroup.AutoAspect;
                     if (!autoAspect) {
                         var relDelta = Math.abs(delta.x) > Math.abs(delta.y) ? delta.x/oldSize.width : delta.y/oldSize.height;
                         var scale = 1. - 2. * relDelta;

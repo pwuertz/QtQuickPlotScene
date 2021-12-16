@@ -1,20 +1,19 @@
-import QtQuick 2.7
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.2
-import QmlPlotting 2.0 as QmlPlotting
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuickPlotScene as QtQuickPlotScene
 
 ApplicationWindow {
     id: approot
     visible: true
-    title: "QmlPlotting Demo"
+    title: "QtQuickPlotScene Demo"
     minimumWidth: 800
     minimumHeight: 600
 
     // Demonstration pages
     ListModel {
         id: demoPages
-        ListElement { name: "2D Data"; source: "qrc:/pages/ColormappedImage.qml" }
-        ListElement { name: "XY Plot"; source: "qrc:/pages/XYPlot.qml"}
+        ListElement { name: "Line plot"; source: "qrc:/pages/LinePlot.qml"}
         ListElement { name: "Containers"; source: "qrc:/pages/Containers.qml"}
     }
     header: ToolBar {

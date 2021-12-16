@@ -1,7 +1,7 @@
-import QtQuick 2.7
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.2
-import QmlPlotting 2.0 as QmlPlotting
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuickPlotScene as QtQuickPlotScene
 
 /**
   Container / MovableContainer example
@@ -10,17 +10,17 @@ import QmlPlotting 2.0 as QmlPlotting
 Page {
     id: root
     // Plot axes for showing container positions
-    QmlPlotting.Axes {
+    QtQuickPlotScene.Axes {
         anchors.fill: parent
         // Define plot group containing zoom/pan tool and example containers with Quick items
-        plotGroup: QmlPlotting.PlotGroup {
+        plotGroup: QtQuickPlotScene.PlotGroup {
             clip: true
             viewRect: Qt.rect(-3, -2, 6, 5)
-            viewMode: QmlPlotting.PlotGroup.PreserveAspectFit
+            viewMode: QtQuickPlotScene.PlotGroup.PreserveAspectFit
             plotItems: [
-                QmlPlotting.ZoomPanTool {},
+                QtQuickPlotScene.ZoomPanTool {},
                 // Fixed container
-                QmlPlotting.Container {
+                QtQuickPlotScene.Container {
                     itemRect: Qt.rect(-2, 0, 1, 1)
                     Rectangle {
                         color: "lightsteelblue"; border.width: 1; border.color: "steelblue"
@@ -28,7 +28,7 @@ Page {
                     }
                 },
                 // Resize- and movable container
-                QmlPlotting.MovableContainer {
+                QtQuickPlotScene.MovableContainer {
                     itemRect: Qt.rect(0, 0, 1, 1)
                     onItemRectChanged: plotLabel.showRect(itemRect)
                     Rectangle {
@@ -37,7 +37,7 @@ Page {
                     }
                 },
                 // Container with resize constraint
-                QmlPlotting.MovableContainer {
+                QtQuickPlotScene.MovableContainer {
                     itemRect: Qt.rect(2, 0, 1, 1)
                     maxItemRect: Qt.rect(-3, -2, 6, 5)
                     onItemRectChanged: plotLabel.showRect(itemRect)

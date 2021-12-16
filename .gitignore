@@ -1,6 +1,2 @@
-*.o
-moc_*.cpp
-Makefile
-*.qmlc
-*.so
-*.user
+/build*
+/*.user

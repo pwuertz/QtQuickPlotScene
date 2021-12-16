@@ -1,15 +1,33 @@
-# QmlPlotting
-QmlPlotting is a collection of QtQuick items for scientific data visualization bundled as QtQuick plugin.
+# QtQuickPlotScene
+
+QtQuickPlotScene is a collection of QtQuick items for data visualization in Qt6.
+
+> **_NOTE:_** This project is a work-in-progress continuation of [QmlPlotting](https://github.com/pwuertz/qmlplotting). Some functionality is still missing and requires porting from Qt5 to Qt6.
 
 ![XY Plot](doc/demo-plotxy.png)
 ![2D Data](doc/demo-colormappedimage.png)
 ![Containers](doc/demo-containers.png)
 
-## Building
-The QmlPlotting project and build process is based on [QBS](http://doc.qt.io/qbs/). The easiest way for building the plugin and running the examples is to open and build the project with a recent version of QtCreator. The minimum requirements for building QmlPlotting are [Qt 5.9](https://www.qt.io/download/) (or later) and a compiler supporting C++14.
+## Building / Including
+
+QtQuickPlotScene is based on Qt 6.2 and uses CMake for building. For applications built with CMake you can fetch and add the library to your build process..
+```cmake
+# Fetch and include QtQuickPlotScene
+include(FetchContent)
+FetchContent_Declare(qtquickplotscene
+    GIT_TAG        master  # <- Ideally this should be a specific tag, not a branch
+    GIT_REPOSITORY https://github.com/pwuertz/QtQuickPlotScene.git
+    SOURCE_SUBDIR  "QtQuickPlotScene"
+    )
+FetchContent_MakeAvailable(qtquickplotscene)
+```
+.. and add the library to your application(s) dependencies
+```cmake
+target_link_libraries(application PRIVATE QtQuickPlotScene::QtQuickPlotScene)
+```
 
 ## Documentation
-A documentation of the API does not exist yet. Until then the example application serves as a reference for using QmlPlotting in custom applications.
+A documentation of the API does not exist yet. Until then the [example application](examples/demo) serves as a reference for using QtQuickPlotScene in other applications.
 
 ## License
-QmlPlotting is available under the [MIT license](LICENSE).
+QtQuickPlotScene is available under the [MIT license](LICENSE).

@@ -1,7 +1,7 @@
-import QtQuick 2.7
-import QmlPlotting 2.0 as QmlPlotting
+import QtQuick
+import QtQuickPlotScene as QtQuickPlotScene
 
-QmlPlotting.Container {
+QtQuickPlotScene.Container {
     id: root
     property bool resizable: true
     property bool movable: true
@@ -17,13 +17,13 @@ QmlPlotting.Container {
             anchors.fill: parent
             cursorShape: Qt.OpenHandCursor
 
-            onPressed: {
+            onPressed: (mouse) => {
                 frame.pressedCoords = mapToGlobal(mouse.x, mouse.y);
                 frame.pressedItemRect = root.itemRect;
                 cursorShape = Qt.ClosedHandCursor;
             }
             onReleased: { cursorShape = Qt.OpenHandCursor; }
-            onPositionChanged: {
+            onPositionChanged: (mouse) => {
                 // Map new position to axes coordinates
                 const pressedRect = frame.pressedItemRect;
                 const pNow = mapToGlobal(mouse.x, mouse.y);
@@ -68,11 +68,11 @@ QmlPlotting.Container {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.SizeFDiagCursor
-                onPressed: {
+                onPressed: (mouse) => {
                     frame.pressedCoords = mapToGlobal(mouse.x, mouse.y);
                     frame.pressedItemRect = root.itemRect;
                 }
-                onPositionChanged: {
+                onPositionChanged: (mouse) => {
                     // Calculate delta from initial, pressed state
                     const pressedRect = frame.pressedItemRect;
                     const pNow = mapToGlobal(mouse.x, mouse.y);
@@ -117,11 +117,11 @@ QmlPlotting.Container {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.SizeFDiagCursor
-                onPressed: {
+                onPressed: (mouse) => {
                     frame.pressedCoords = mapToGlobal(mouse.x, mouse.y);
                     frame.pressedItemRect = root.itemRect;
                 }
-                onPositionChanged: {
+                onPositionChanged: (mouse) => {
                     // Calculate delta from initial, pressed state
                     const pressedRect = frame.pressedItemRect;
                     const pNow = mapToGlobal(mouse.x, mouse.y);

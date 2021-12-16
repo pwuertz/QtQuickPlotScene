@@ -1,6 +1,6 @@
-import QtQuick 2.7
-import QtQuick.Layouts 1.1
-import QmlPlotting 2.0 as QmlPlotting
+import QtQuick
+import QtQuick.Layouts
+import QtQuickPlotScene as QtQuickPlotScene
 
 Rectangle {
     id: root
@@ -25,7 +25,7 @@ Rectangle {
     property color axesBorderColor: "black"
     property color axesBackgroundColor: "transparent"
 
-    property Item plotGroup: QmlPlotting.PlotGroup {
+    property Item plotGroup: QtQuickPlotScene.PlotGroup {
         Component.onCompleted: {
             plotGroup.parent = plotGroupItem;
             plotGroup.anchors.fill = plotGroupItem;
@@ -51,9 +51,9 @@ Rectangle {
             var xrange = viewRect.width;
 
             var max_ticks = Math.max(Math.floor(width / (text_width + spacing)) + 1, 2);
-            var tickdiffprec = QmlPlotting.Utils.niceNumPrec(xrange / (max_ticks - 1), false);
-            var tick_diff = tickdiffprec[0];
-            var tick_prec = tickdiffprec[1];
+            var tickdiffprec = QtQuickPlotScene.Utils.niceNumPrec(xrange / (max_ticks - 1), false);
+            var tick_diff = tickdiffprec.x;
+            var tick_prec = tickdiffprec.y;
             var tick_min = Math.ceil(x0 / tick_diff) * tick_diff;
             var n_ticks = Math.ceil((x0 + xrange - tick_min) / tick_diff);
             var tick_max = tick_min + n_ticks * tick_diff;
@@ -79,9 +79,9 @@ Rectangle {
             var yrange = viewRect.height;
 
             var max_ticks = Math.max(Math.floor(height / (text_height + spacing)) + 1, 2);
-            var tickdiffprec = QmlPlotting.Utils.niceNumPrec(yrange / (max_ticks - 1), logY);
-            var tick_diff = tickdiffprec[0];
-            var tick_prec = tickdiffprec[1];
+            var tickdiffprec = QtQuickPlotScene.Utils.niceNumPrec(yrange / (max_ticks - 1), logY);
+            var tick_diff = tickdiffprec.x;
+            var tick_prec = tickdiffprec.y;
             var tick_min = Math.floor(y0 / tick_diff) * tick_diff;
             var n_ticks = Math.ceil((y0 + yrange - tick_min) / tick_diff);
             var tick_max = tick_min + n_ticks * tick_diff;
